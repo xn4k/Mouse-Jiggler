@@ -1,2 +1,2 @@
 # MouseJiggler
- Mouse Jiggler in Golang ... more incoming soon
+ Mouse Jiggler in Golang ... more incoming soon.
