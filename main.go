@@ -2,34 +2,39 @@ package main
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/go-vgo/robotgo"
 )
 
-const (
-	jiggleInterval = 5 * time.Second // Adjust the interval as needed
-)
+const x = "Hello World"
 
 func main() {
-	fmt.Println("Simple Mouse Jiggler started. Press Ctrl+C to exit.")
+	printToEditorWindows()
 
-	for {
-		moveMouseToCenter()
-		time.Sleep(jiggleInterval)
-	}
 }
 
-func moveMouseToCenter() {
-	screenWidth, screenHeight := robotgo.GetScreenSize()
-	mouseX, mouseY := robotgo.GetMousePos()
+func printToEditorWindows() {
+	fmt.Println("Mouse Jiggler started. Press Ctrl+C to exit.")
 
-	// Determine the center of the screen where the mouse is located
-	screenX := mouseX % screenWidth
-	screenY := mouseY % screenHeight
+	err := robotgo.KeyTap("cmd")
+	if err != nil {
+		return
+	}
+	robotgo.Sleep(5)
+	robotgo.TypeStr("editor")
+	robotgo.Sleep(5)
 
-	centerX := screenX + screenWidth/2
-	centerY := screenY + screenHeight/2
+	fmt.Println("Pressing enter")
+	robotgo.KeySleep = 100
 
-	robotgo.MoveMouse(centerX, centerY)
+	err = robotgo.KeyTap("enter")
+	if err != nil {
+		return
+	}
+
+	robotgo.Sleep(5)
+
+	for {
+		robotgo.TypeStr(x)
+	}
+
 }
